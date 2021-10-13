@@ -1,0 +1,62 @@
+{
+  "kind": "Template",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "clamav-api",
+    "creationTimestamp": null
+  },
+  "objects": [
+    {
+      "kind": "ImageStream",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "clamav-api"
+      }
+    },
+    {
+      "kind": "BuildConfig",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "clamav-api-build",
+        "creationTimestamp": null,
+        "labels": {
+          "app": "clamav-api"
+        }
+      },
+      "spec": {
+        "runPolicy": "Serial",
+        "completionDeadlineSeconds": 1800,
+        "triggers": [
+          {
+            "type": "ConfigChange"
+          }
+        ],
+        "source": {
+          "type": "Git",
+          "git": {
+            "uri": "https://github.com/benzino77/clamav-rest-api"
+          }
+        },
+        "strategy": {
+          "type": "Docker",
+          "dockerStrategy": {
+            "dockerfilePath": "Dockerfile"
+          }
+        },
+        "output": {
+          "to": {
+            "kind": "ImageStreamTag",
+            "name": "clamav-api:latest"
+          }
+        },
+        "resources": {
+          "requests": {
+            "cpu": "100m",
+            "memory": "2Gi"
+          },
+          "limits": {
+            "cpu": "1",
+            "memory": "4Gi"
+          }
+        }
+      }
