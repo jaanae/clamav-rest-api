@@ -7,7 +7,7 @@ COPY src ./src/
 COPY package.json package-lock.json ./
 
 RUN npm install --production && \
-    chown -R node:node ./
+    chown -R nginx:nginx ./
 
 USER root:root
 ENTRYPOINT ["npm", "start"]
