@@ -9,5 +9,5 @@ COPY package.json package-lock.json ./
 RUN npm install --production && \
     chown -R node:node ./
 
-USER node:node
+USER root:root
 ENTRYPOINT ["npm", "start"]
