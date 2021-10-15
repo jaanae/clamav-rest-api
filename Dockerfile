@@ -6,8 +6,7 @@ WORKDIR /clamav-rest-api
 COPY src ./src/
 COPY package.json package-lock.json ./
 
-RUN npm install --production && \
-    chown -R nginx:nginx ./
+RUN npm install --production 
 
-USER root:root
+USER node:node
 ENTRYPOINT ["npm", "start"]
